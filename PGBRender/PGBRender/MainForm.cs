@@ -29,24 +29,21 @@ namespace PGBRender
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRender_Click(object sender, EventArgs e)
         {
-            int remainder = ((int)nudFrameCount.Value + 1) % ((int)nudCoreCount.Value);
-            int framesPerWorker = ((int)nudFrameCount.Value) / ((int)nudCoreCount.Value);
-            int currentStartFrame = 0;
+            RenderJob job = new RenderJob();
+            job.BlendFile = txtBlendFile.Text;
+            job.CoreCount = (int)nudCoreCount.Value;
+            job.StartFrame = (int)nudFrameStart.Value;
+            job.EndFrame = (int)nudFrameEnd.Value;
+            job.OutputDirectory = @"D:\Editing\Renders";
+            job.TempDirectory = @"D:\Editing\Renders\Temp";
+            job.Run();
+        }
 
-            for (int core = 0; core < nudCoreCount.Value; core++)
-            {
-                RenderSegment segment = new RenderSegment();
-                segment.BlendFile = txtBlendFile.Text;
-                segment.StartFrame = currentStartFrame;
-                segment.EndFrame = currentStartFrame + framesPerWorker - 1;
-                if (core == nudCoreCount.Value - 1)
-                    segment.EndFrame += remainder;
-                currentStartFrame = currentStartFrame + framesPerWorker;
-                segment.OutputDirectory = "D:\\Editing";
-                segment.Render();
-            }
+        private void nudFrameStart_ValueChanged(object sender, EventArgs e)
+        {
+            nudFrameEnd.Minimum = nudFrameStart.Value + 1;
         }
     }
 }
