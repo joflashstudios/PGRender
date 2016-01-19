@@ -29,25 +29,34 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nudFrameCount = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBlendFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrameCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.nudFrameCount);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(257, 151);
             this.panel1.TabIndex = 8;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // numericUpDown2
+            // 
+            this.nudFrameCount.Location = new System.Drawing.Point(89, 38);
+            this.nudFrameCount.Name = "numericUpDown2";
+            this.nudFrameCount.Size = new System.Drawing.Size(153, 22);
+            this.nudFrameCount.TabIndex = 15;
             // 
             // label4
             // 
@@ -69,6 +78,7 @@
             this.button1.TabIndex = 15;
             this.button1.Text = "Render";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // numericUpDown1
             // 
@@ -87,13 +97,6 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Core Count:";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(89, 39);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(153, 22);
-            this.textBox2.TabIndex = 12;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -104,12 +107,13 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Frame Count:";
             // 
-            // textBox1
+            // txtBlendFile
             // 
-            this.textBox1.Location = new System.Drawing.Point(89, 11);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(153, 22);
-            this.textBox1.TabIndex = 10;
+            this.txtBlendFile.Location = new System.Drawing.Point(89, 11);
+            this.txtBlendFile.Name = "txtBlendFile";
+            this.txtBlendFile.Size = new System.Drawing.Size(153, 22);
+            this.txtBlendFile.TabIndex = 10;
+            this.txtBlendFile.DoubleClick += new System.EventHandler(this.txtBlendFile_DoubleClick);
             // 
             // label1
             // 
@@ -130,9 +134,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBlendFile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -140,6 +143,8 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "PhilosoGamer Renderer";
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrameCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -152,10 +157,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBlendFile;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudFrameCount;
     }
 }
 
