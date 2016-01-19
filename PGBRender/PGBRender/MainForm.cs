@@ -15,6 +15,7 @@ namespace PGBRender
         public MainForm()
         {
             InitializeComponent();
+            nudCoreCount.Maximum = Environment.ProcessorCount;
         }
 
         private void txtBlendFile_DoubleClick(object sender, EventArgs e)
@@ -30,12 +31,22 @@ namespace PGBRender
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RenderSegment oneSegment = new RenderSegment();
-            oneSegment.BlendFile = txtBlendFile.Text;
-            oneSegment.StartFrame = 0;
-            oneSegment.EndFrame = (int)nudFrameCount.Value;
-            oneSegment.OutputDirectory = "D:\\Editing";
-            oneSegment.Render();
+            int remainder = ((int)nudFrameCount.Value + 1) % ((int)nudCoreCount.Value);
+            int framesPerWorker = ((int)nudFrameCount.Value) / ((int)nudCoreCount.Value);
+            int currentStartFrame = 0;
+
+            for (int core = 0; core < nudCoreCount.Value; core++)
+            {
+                RenderSegment segment = new RenderSegment();
+                segment.BlendFile = txtBlendFile.Text;
+                segment.StartFrame = currentStartFrame;
+                segment.EndFrame = currentStartFrame + framesPerWorker - 1;
+                if (core == nudCoreCount.Value - 1)
+                    segment.EndFrame += remainder;
+                currentStartFrame = currentStartFrame + framesPerWorker;
+                segment.OutputDirectory = "D:\\Editing";
+                segment.Render();
+            }
         }
     }
 }

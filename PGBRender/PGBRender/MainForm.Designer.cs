@@ -32,14 +32,14 @@
             this.nudFrameCount = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.nudCoreCount = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBlendFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,10 +51,15 @@
             this.panel1.Size = new System.Drawing.Size(257, 151);
             this.panel1.TabIndex = 8;
             // 
-            // numericUpDown2
+            // nudFrameCount
             // 
             this.nudFrameCount.Location = new System.Drawing.Point(89, 38);
-            this.nudFrameCount.Name = "numericUpDown2";
+            this.nudFrameCount.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nudFrameCount.Name = "nudFrameCount";
             this.nudFrameCount.Size = new System.Drawing.Size(153, 22);
             this.nudFrameCount.TabIndex = 15;
             // 
@@ -80,12 +85,12 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // numericUpDown1
+            // nudCoreCount
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(89, 66);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(153, 22);
-            this.numericUpDown1.TabIndex = 14;
+            this.nudCoreCount.Location = new System.Drawing.Point(89, 66);
+            this.nudCoreCount.Name = "nudCoreCount";
+            this.nudCoreCount.Size = new System.Drawing.Size(153, 22);
+            this.nudCoreCount.TabIndex = 14;
             // 
             // label3
             // 
@@ -132,7 +137,7 @@
             this.ClientSize = new System.Drawing.Size(257, 151);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.nudCoreCount);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtBlendFile);
@@ -145,7 +150,7 @@
             this.Text = "PhilosoGamer Renderer";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,7 +160,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudCoreCount;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBlendFile;
