@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nudFrameStart = new System.Windows.Forms.NumericUpDown();
             this.nudFrameEnd = new System.Windows.Forms.NumericUpDown();
+            this.nudCoreCount = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnRender = new System.Windows.Forms.Button();
-            this.nudCoreCount = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtBlendFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.nudFrameStart = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -55,6 +55,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(257, 151);
             this.panel1.TabIndex = 8;
+            // 
+            // nudFrameStart
+            // 
+            this.nudFrameStart.Location = new System.Drawing.Point(89, 38);
+            this.nudFrameStart.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nudFrameStart.Name = "nudFrameStart";
+            this.nudFrameStart.Size = new System.Drawing.Size(73, 22);
+            this.nudFrameStart.TabIndex = 16;
+            this.nudFrameStart.ValueChanged += new System.EventHandler(this.nudFrameStart_ValueChanged);
             // 
             // nudFrameEnd
             // 
@@ -78,6 +91,33 @@
             0,
             0});
             // 
+            // nudCoreCount
+            // 
+            this.nudCoreCount.Location = new System.Drawing.Point(89, 66);
+            this.nudCoreCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCoreCount.Name = "nudCoreCount";
+            this.nudCoreCount.Size = new System.Drawing.Size(153, 22);
+            this.nudCoreCount.TabIndex = 14;
+            this.nudCoreCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(22, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Frame Set:";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -100,23 +140,6 @@
             this.btnRender.UseVisualStyleBackColor = true;
             this.btnRender.Click += new System.EventHandler(this.btnRender_Click);
             // 
-            // nudCoreCount
-            // 
-            this.nudCoreCount.Location = new System.Drawing.Point(89, 66);
-            this.nudCoreCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudCoreCount.Name = "nudCoreCount";
-            this.nudCoreCount.Size = new System.Drawing.Size(153, 22);
-            this.nudCoreCount.TabIndex = 14;
-            this.nudCoreCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -127,22 +150,13 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Core Count:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Frame Set:";
-            // 
             // txtBlendFile
             // 
             this.txtBlendFile.Location = new System.Drawing.Point(89, 11);
             this.txtBlendFile.Name = "txtBlendFile";
             this.txtBlendFile.Size = new System.Drawing.Size(153, 22);
             this.txtBlendFile.TabIndex = 10;
+            this.txtBlendFile.TextChanged += new System.EventHandler(this.txtBlendFile_TextChanged);
             this.txtBlendFile.DoubleClick += new System.EventHandler(this.txtBlendFile_DoubleClick);
             // 
             // label1
@@ -154,19 +168,6 @@
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "Project File:";
-            // 
-            // nudFrameStart
-            // 
-            this.nudFrameStart.Location = new System.Drawing.Point(89, 38);
-            this.nudFrameStart.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nudFrameStart.Name = "nudFrameStart";
-            this.nudFrameStart.Size = new System.Drawing.Size(73, 22);
-            this.nudFrameStart.TabIndex = 16;
-            this.nudFrameStart.ValueChanged += new System.EventHandler(this.nudFrameStart_ValueChanged);
             // 
             // MainForm
             // 
@@ -186,9 +187,9 @@
             this.Text = "PhilosoGamer Renderer";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
