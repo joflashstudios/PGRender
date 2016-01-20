@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Management;
 using System.Threading;
 using System.Diagnostics;
 
@@ -17,6 +18,8 @@ namespace PGBRender
         public string OutputDirectory { get; set; }
         public int StartFrame { get; set; }
         public int EndFrame { get; set; }
+        public Process BlenderRenderer { get { return _BlenderRenderer; } }
+        private Process _BlenderRenderer;
 
         public int TotalFrames { get { return (EndFrame - StartFrame) + 1; } }
         public int CompletedFrames { get { return LastFrame - StartFrame; } }
@@ -40,33 +43,64 @@ namespace PGBRender
 
         public void Render()
         {
+            _LastFrame = StartFrame;
             ThreadStart start = new ThreadStart(RenderInternal);
             Thread sprinter = new Thread(start);
             sprinter.Start();
         }
 
+        public void Cancel()
+        {
+            _State = ProcessState.Cancelled;
+            KillProcessAndChildren(BlenderRenderer.Id);
+        }
+
+        private static void KillProcessAndChildren(int pid)
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher
+              ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
+            {
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+            }
+            try
+            {
+                Process proc = Process.GetProcessById(pid);
+                proc.Kill();
+            }
+            catch (ArgumentException)
+            {
+                // Process already exited.
+            }
+        }
+
         private void RenderInternal()
         {
-            Process blenderRenderer = new Process();
+            _BlenderRenderer = new Process();
             ProcessStartInfo blenderArgs = new ProcessStartInfo(@"C:\Program Files\Blender Foundation\Blender\blender.exe", BuildCommandLineArgs());
             blenderArgs.CreateNoWindow = true;
             blenderArgs.RedirectStandardOutput = true;
             blenderArgs.UseShellExecute = false;
-            blenderRenderer.StartInfo = blenderArgs;
-            blenderRenderer.OutputDataReceived += BlenderRenderer_OutputDataReceived;
-            blenderRenderer.Start();
-            blenderRenderer.BeginOutputReadLine();
+            BlenderRenderer.StartInfo = blenderArgs;
+            BlenderRenderer.OutputDataReceived += BlenderRenderer_OutputDataReceived;
+            BlenderRenderer.Start();
+            BlenderRenderer.BeginOutputReadLine();
             _State = ProcessState.Running;
-            blenderRenderer.WaitForExit();
-            _State = ProcessState.Complete;
+            BlenderRenderer.WaitForExit();
 
-            if (OnComplete != null)
-                OnComplete();
+            if (State != ProcessState.Cancelled)
+            {
+                _State = ProcessState.Complete;
+
+                if (OnComplete != null)
+                    OnComplete();
+            }
         }
 
         private void BlenderRenderer_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data.StartsWith("Append frame "))
+        {            
+            if (e.Data != null && e.Data.StartsWith("Append frame "))
             {
                 _LastFrame = int.Parse(e.Data.Substring(13));
                 OnFrameRendered(this);
@@ -88,6 +122,7 @@ namespace PGBRender
     {
         Prestart,
         Running,
-        Complete
+        Complete,
+        Cancelled
     }
 }

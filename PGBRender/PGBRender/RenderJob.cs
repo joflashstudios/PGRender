@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Text;
+using System.Management;
 using System.IO;
 
 namespace PGBRender
@@ -20,9 +21,14 @@ namespace PGBRender
         public string TempDirectory { get; set; }
         public string OutputDirectory { get; set; }
         public ProcessComplete OnJobComplete;
+        public JobProgress OnJobProgress;
 
         public ProcessState State { get { return _State; } }
         private ProcessState _State { get; set; }
+
+        private DateTime LastProgress = DateTime.Now;
+        public int TotalFrames { get { return Segments.Sum(n => n.TotalFrames); } }
+        public int CompletedFrames { get { return Segments.Sum(n => n.CompletedFrames); } }
 
         private string Extension;
 
@@ -40,12 +46,14 @@ namespace PGBRender
 
                 if (OnJobComplete != null)
                     OnJobComplete();
+
+                _State = ProcessState.Complete;
             }                
         }
 
         private void OnFrameRendered(RenderSegment segment)
         {
-
+            OnJobProgress(this);
         }
 
         private void CleanUp()
@@ -63,6 +71,17 @@ namespace PGBRender
         {
             SetUp();
             StartSegments();
+            _State = ProcessState.Running;
+        }
+
+        public void Cancel()
+        {
+            _State = ProcessState.Cancelled;
+
+            foreach (RenderSegment segment in Segments)
+                segment.Cancel();
+
+            CleanUp();
         }
 
         private void StartSegments()
@@ -125,4 +144,6 @@ namespace PGBRender
             blenderRenderer.StartInfo = blenderArgs;
         }
     }
+
+    delegate void JobProgress(RenderJob sender);
 }

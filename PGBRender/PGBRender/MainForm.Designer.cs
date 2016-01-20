@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSetup = new System.Windows.Forms.Panel();
             this.txtBlendFile = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.lblProjectFile = new System.Windows.Forms.Label();
+            this.lblCoreCount = new System.Windows.Forms.Label();
+            this.nudFPS = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.nudFrameStart = new System.Windows.Forms.NumericUpDown();
@@ -40,42 +40,46 @@
             this.nudFrameEnd = new System.Windows.Forms.NumericUpDown();
             this.nudCoreCount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.panelRunning = new System.Windows.Forms.Panel();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.lblRunETA = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.lblRunRealtime = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblRunFPS = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblRunCores = new System.Windows.Forms.Label();
+            this.lblRunFrames = new System.Windows.Forms.Label();
+            this.lblRunProject = new System.Windows.Forms.Label();
+            this.panelSetup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panelRunning.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panelSetup
             // 
-            this.panel1.Controls.Add(this.txtBlendFile);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.nudFrameStart);
-            this.panel1.Controls.Add(this.btnRender);
-            this.panel1.Controls.Add(this.nudFrameEnd);
-            this.panel1.Controls.Add(this.nudCoreCount);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(209, 160);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(257, 175);
-            this.panel1.TabIndex = 8;
+            this.panelSetup.Controls.Add(this.txtBlendFile);
+            this.panelSetup.Controls.Add(this.lblProjectFile);
+            this.panelSetup.Controls.Add(this.lblCoreCount);
+            this.panelSetup.Controls.Add(this.nudFPS);
+            this.panelSetup.Controls.Add(this.label5);
+            this.panelSetup.Controls.Add(this.label4);
+            this.panelSetup.Controls.Add(this.nudFrameStart);
+            this.panelSetup.Controls.Add(this.btnRender);
+            this.panelSetup.Controls.Add(this.nudFrameEnd);
+            this.panelSetup.Controls.Add(this.nudCoreCount);
+            this.panelSetup.Controls.Add(this.label2);
+            this.panelSetup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSetup.Location = new System.Drawing.Point(0, 0);
+            this.panelSetup.Name = "panelSetup";
+            this.panelSetup.Size = new System.Drawing.Size(257, 175);
+            this.panelSetup.TabIndex = 8;
             // 
             // txtBlendFile
             // 
@@ -86,38 +90,38 @@
             this.txtBlendFile.TextChanged += new System.EventHandler(this.txtBlendFile_TextChanged);
             this.txtBlendFile.DoubleClick += new System.EventHandler(this.txtBlendFile_DoubleClick);
             // 
-            // label1
+            // lblProjectFile
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Project File:";
+            this.lblProjectFile.AutoSize = true;
+            this.lblProjectFile.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProjectFile.Location = new System.Drawing.Point(16, 13);
+            this.lblProjectFile.Name = "lblProjectFile";
+            this.lblProjectFile.Size = new System.Drawing.Size(67, 13);
+            this.lblProjectFile.TabIndex = 9;
+            this.lblProjectFile.Text = "Project File:";
             // 
-            // label3
+            // lblCoreCount
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(14, 68);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Core Count:";
+            this.lblCoreCount.AutoSize = true;
+            this.lblCoreCount.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCoreCount.Location = new System.Drawing.Point(14, 68);
+            this.lblCoreCount.Name = "lblCoreCount";
+            this.lblCoreCount.Size = new System.Drawing.Size(69, 13);
+            this.lblCoreCount.TabIndex = 13;
+            this.lblCoreCount.Text = "Core Count:";
             // 
-            // numericUpDown1
+            // nudFPS
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(89, 93);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.nudFPS.Location = new System.Drawing.Point(89, 93);
+            this.nudFPS.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(153, 22);
-            this.numericUpDown1.TabIndex = 16;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.nudFPS.Name = "nudFPS";
+            this.nudFPS.Size = new System.Drawing.Size(153, 22);
+            this.nudFPS.TabIndex = 16;
+            this.nudFPS.Value = new decimal(new int[] {
             60,
             0,
             0,
@@ -217,169 +221,208 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Frame Set:";
             // 
-            // panel2
+            // panelRunning
             // 
-            this.panel2.Controls.Add(this.progressBar1);
-            this.panel2.Controls.Add(this.label14);
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(257, 175);
-            this.panel2.TabIndex = 17;
+            this.panelRunning.Controls.Add(this.btnPause);
+            this.panelRunning.Controls.Add(this.btnCancel);
+            this.panelRunning.Controls.Add(this.label15);
+            this.panelRunning.Controls.Add(this.progressBar);
+            this.panelRunning.Controls.Add(this.lblRunETA);
+            this.panelRunning.Controls.Add(this.label13);
+            this.panelRunning.Controls.Add(this.lblRunRealtime);
+            this.panelRunning.Controls.Add(this.label11);
+            this.panelRunning.Controls.Add(this.lblRunFPS);
+            this.panelRunning.Controls.Add(this.label9);
+            this.panelRunning.Controls.Add(this.lblRunCores);
+            this.panelRunning.Controls.Add(this.lblRunFrames);
+            this.panelRunning.Controls.Add(this.lblRunProject);
+            this.panelRunning.Location = new System.Drawing.Point(12, 8);
+            this.panelRunning.Name = "panelRunning";
+            this.panelRunning.Size = new System.Drawing.Size(203, 163);
+            this.panelRunning.TabIndex = 17;
+            this.panelRunning.Visible = false;
             // 
-            // label6
+            // btnPause
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(155, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Rendering Project File Name";
+            this.btnPause.Location = new System.Drawing.Point(89, 146);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(75, 26);
+            this.btnPause.TabIndex = 22;
+            this.btnPause.Text = "Pause";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
-            // label7
+            // btnCancel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(7, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Frames x-y";
+            this.btnCancel.Location = new System.Drawing.Point(170, 146);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 26);
+            this.btnCancel.TabIndex = 21;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label8
+            // label15
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(7, 36);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "N Cores";
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label15.Location = new System.Drawing.Point(-15, 128);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(307, 15);
+            this.label15.TabIndex = 20;
+            this.label15.Text = "__________________________________________________";
             // 
-            // label9
+            // progressBar
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(7, 56);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "FPS:";
+            this.progressBar.Location = new System.Drawing.Point(10, 105);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(235, 23);
+            this.progressBar.TabIndex = 19;
             // 
-            // label10
+            // lblRunETA
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(35, 56);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(23, 13);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "NN";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(66, 56);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 13);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "% Realtime:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(133, 56);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 13);
-            this.label12.TabIndex = 16;
-            this.label12.Text = "NN%";
+            this.lblRunETA.AutoSize = true;
+            this.lblRunETA.Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunETA.Location = new System.Drawing.Point(35, 82);
+            this.lblRunETA.Name = "lblRunETA";
+            this.lblRunETA.Size = new System.Drawing.Size(140, 13);
+            this.lblRunETA.TabIndex = 18;
+            this.lblRunETA.Text = "NN:NN:NN - 12:00 PM";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(7, 75);
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(7, 81);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(30, 13);
+            this.label13.Size = new System.Drawing.Size(31, 15);
             this.label13.TabIndex = 17;
             this.label13.Text = "ETA:";
             // 
-            // label14
+            // lblRunRealtime
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(35, 75);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(61, 13);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "NN:NN:NN";
+            this.lblRunRealtime.AutoSize = true;
+            this.lblRunRealtime.Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunRealtime.Location = new System.Drawing.Point(150, 61);
+            this.lblRunRealtime.Name = "lblRunRealtime";
+            this.lblRunRealtime.Size = new System.Drawing.Size(28, 13);
+            this.lblRunRealtime.TabIndex = 16;
+            this.lblRunRealtime.Text = "NN%";
             // 
-            // progressBar1
+            // label11
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 98);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(235, 23);
-            this.progressBar1.TabIndex = 19;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(80, 59);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 15);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "% Realtime:";
+            // 
+            // lblRunFPS
+            // 
+            this.lblRunFPS.AutoSize = true;
+            this.lblRunFPS.Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunFPS.Location = new System.Drawing.Point(35, 61);
+            this.lblRunFPS.Name = "lblRunFPS";
+            this.lblRunFPS.Size = new System.Drawing.Size(35, 13);
+            this.lblRunFPS.TabIndex = 14;
+            this.lblRunFPS.Text = "NN.N";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(7, 59);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(30, 15);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "FPS:";
+            // 
+            // lblRunCores
+            // 
+            this.lblRunCores.AutoSize = true;
+            this.lblRunCores.Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunCores.Location = new System.Drawing.Point(10, 37);
+            this.lblRunCores.Name = "lblRunCores";
+            this.lblRunCores.Size = new System.Drawing.Size(56, 13);
+            this.lblRunCores.TabIndex = 12;
+            this.lblRunCores.Text = "N Cores";
+            // 
+            // lblRunFrames
+            // 
+            this.lblRunFrames.AutoSize = true;
+            this.lblRunFrames.Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunFrames.Location = new System.Drawing.Point(10, 23);
+            this.lblRunFrames.Name = "lblRunFrames";
+            this.lblRunFrames.Size = new System.Drawing.Size(77, 13);
+            this.lblRunFrames.TabIndex = 11;
+            this.lblRunFrames.Text = "Frames x-y";
+            // 
+            // lblRunProject
+            // 
+            this.lblRunProject.AutoSize = true;
+            this.lblRunProject.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRunProject.Location = new System.Drawing.Point(7, 7);
+            this.lblRunProject.Name = "lblRunProject";
+            this.lblRunProject.Size = new System.Drawing.Size(166, 15);
+            this.lblRunProject.TabIndex = 10;
+            this.lblRunProject.Text = "Rendering Project File Name";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 175);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelSetup);
+            this.Controls.Add(this.panelRunning);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "PhilosoGamer Renderer";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.panelSetup.ResumeLayout(false);
+            this.panelSetup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFPS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrameEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCoreCount)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelRunning.ResumeLayout(false);
+            this.panelRunning.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelSetup;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnRender;
         private System.Windows.Forms.NumericUpDown nudCoreCount;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCoreCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBlendFile;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblProjectFile;
         private System.Windows.Forms.NumericUpDown nudFrameEnd;
         private System.Windows.Forms.NumericUpDown nudFrameStart;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudFPS;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panelRunning;
+        private System.Windows.Forms.Label lblRunProject;
+        private System.Windows.Forms.Label lblRunCores;
+        private System.Windows.Forms.Label lblRunFrames;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label lblRunETA;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblRunRealtime;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblRunFPS;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label15;
     }
 }
 
