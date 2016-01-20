@@ -43,6 +43,11 @@ namespace PGBRender
             }                
         }
 
+        private void OnFrameRendered(RenderSegment segment)
+        {
+
+        }
+
         private void CleanUp()
         {
             Directory.Delete(WorkDirectory, true);
@@ -75,6 +80,7 @@ namespace PGBRender
                 segment.EndFrame = currentStartFrame + framesPerWorker - 1;
                 segment.OutputDirectory = WorkDirectory;
                 segment.OnComplete = new ProcessComplete(OnSegmentComplete);
+                segment.OnFrameRendered = new FrameRendered(OnFrameRendered);
 
                 if (core == CoreCount - 1)
                     segment.EndFrame += remainder;
