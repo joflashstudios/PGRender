@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelSetup = new System.Windows.Forms.Panel();
+            this.lnkConfig = new System.Windows.Forms.LinkLabel();
             this.txtBlendFile = new System.Windows.Forms.TextBox();
             this.lblProjectFile = new System.Windows.Forms.Label();
             this.lblCoreCount = new System.Windows.Forms.Label();
@@ -64,6 +65,7 @@
             // 
             // panelSetup
             // 
+            this.panelSetup.Controls.Add(this.lnkConfig);
             this.panelSetup.Controls.Add(this.txtBlendFile);
             this.panelSetup.Controls.Add(this.lblProjectFile);
             this.panelSetup.Controls.Add(this.lblCoreCount);
@@ -80,6 +82,17 @@
             this.panelSetup.Name = "panelSetup";
             this.panelSetup.Size = new System.Drawing.Size(257, 175);
             this.panelSetup.TabIndex = 8;
+            // 
+            // lnkConfig
+            // 
+            this.lnkConfig.AutoSize = true;
+            this.lnkConfig.Location = new System.Drawing.Point(4, 137);
+            this.lnkConfig.Name = "lnkConfig";
+            this.lnkConfig.Size = new System.Drawing.Size(42, 13);
+            this.lnkConfig.TabIndex = 17;
+            this.lnkConfig.TabStop = true;
+            this.lnkConfig.Text = "Config";
+            this.lnkConfig.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkConfig_LinkClicked);
             // 
             // txtBlendFile
             // 
@@ -423,6 +436,7 @@
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.LinkLabel lnkConfig;
     }
 }
 

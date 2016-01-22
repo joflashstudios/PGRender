@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Reflection;
+using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -15,15 +15,52 @@ namespace PGBRender
 {
     public partial class MainForm : Form
     {
-        bool Running;
-        RenderJob Job;
-        DateTime LastPoll = DateTime.Now;
-        double[] HistoricFPS = new double[30];
-        int HistoricFPSIndex = 0;
-        int LastFramesCompleted = 0;
-        int Resolution = 10;
-        int UpdateCount = 1;
-        object UpdateLock = new object();
+        JobManager manager;
+        Configuration _config;
+
+        Configuration config
+        {
+            get
+            {
+                if (_config == null)
+                {
+                    if (File.Exists("config.xml"))
+                    {
+                        try
+                        {
+                            XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+                            using (StreamReader reader = new StreamReader("config.xml"))
+                            {
+                                _config = (Configuration)ser.Deserialize(reader);
+                            }
+                        }
+                        catch
+                        {
+                            config = new Configuration();
+                        }
+                    }
+                    else
+                    {
+                        _config = new Configuration();
+                    }
+                }
+                return _config;
+            }
+            set
+            {
+                _config = value;
+            }
+        }
+
+        private void SaveConfig()
+        {
+            XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+            var loadedConfig = config;
+            using (StreamWriter writer = new StreamWriter("config.xml"))
+            {
+                ser.Serialize(writer, loadedConfig);
+            }
+        }
 
         public MainForm()
         {
@@ -44,16 +81,18 @@ namespace PGBRender
 
         private void btnRender_Click(object sender, EventArgs e)
         {
-            Job = new RenderJob();
-            Job.BlendFile = txtBlendFile.Text;
-            Job.CoreCount = (int)nudCoreCount.Value;
-            Job.StartFrame = (int)nudFrameStart.Value;
-            Job.EndFrame = (int)nudFrameEnd.Value;
-            Job.OutputDirectory = @"D:\Editing\Renders";
-            Job.TempDirectory = @"D:\Editing\Renders\Temp";
-            Job.OnJobProgress += new JobProgress(JobProgressed);
-            Job.OnJobComplete += new ProcessComplete(JobComplete);
-            Job.Run();
+            manager = new JobManager(config);
+
+            manager.Job.BlendFile = txtBlendFile.Text;
+            manager.Job.FFMPEGFile = config.FFMPEGPath;
+            manager.Job.CoreCount = (int)nudCoreCount.Value;
+            manager.Job.StartFrame = (int)nudFrameStart.Value;
+            manager.Job.EndFrame = (int)nudFrameEnd.Value;
+
+            manager.Job.OnJobProgress += new JobProgress(JobProgressed);
+            manager.Job.OnJobComplete += new ProcessComplete(JobComplete);
+            manager.Job.Run();
+
             PrepRunningPanel();
             ToggleRunning();
         }
@@ -72,26 +111,26 @@ namespace PGBRender
 
         private void JobProgressed(RenderJob job)
         {
-            lock (UpdateLock)
+            lock (manager.UpdateLock)
             {
-                if (UpdateCount % Resolution == 0 && job.State == ProcessState.Running)
+                if (manager.UpdateCount % manager.Resolution == 0 && job.State == ProcessState.Running)
                 {
-                    UpdateCount = 1;
+                    manager.UpdateCount = 1;
                     Action reportProgress = delegate () {
                         int totalFrames = job.TotalFrames;
                         int completedFrames = job.CompletedFrames;
 
-                        TimeSpan elapsed = DateTime.Now - LastPoll;
-                        LastPoll = DateTime.Now;
+                        TimeSpan elapsed = DateTime.Now - manager.LastPoll;
+                        manager.LastPoll = DateTime.Now;
 
                         progressBar.Value = (int)(Math.Round((double)(100 * completedFrames) / (double)totalFrames));
-                        double FPS = (completedFrames - LastFramesCompleted) / elapsed.TotalSeconds;
-                        HistoricFPS[HistoricFPSIndex] = FPS;
-                        HistoricFPSIndex++;
-                        if (HistoricFPSIndex == HistoricFPS.Length)
-                            HistoricFPSIndex = 0;
+                        double FPS = (completedFrames - manager.LastFramesCompleted) / elapsed.TotalSeconds;
+                        manager.HistoricFPS[manager.HistoricFPSIndex] = FPS;
+                        manager.HistoricFPSIndex++;
+                        if (manager.HistoricFPSIndex == manager.HistoricFPS.Length)
+                            manager.HistoricFPSIndex = 0;
 
-                        double averageFPS = HistoricFPS.Where(n => n != 0).Average();
+                        double averageFPS = manager.HistoricFPS.Where(n => n != 0).Average();
 
                         if (averageFPS != 0)
                         {
@@ -102,13 +141,13 @@ namespace PGBRender
                             DateTime ETATime = DateTime.Now.Add(ETA);
                             lblRunETA.Text = ETA.ToString("hh'h 'mm'm 'ss's'") + " – " + ETATime.ToString("t");
                         }
-                        LastFramesCompleted = completedFrames;
+                        manager.LastFramesCompleted = completedFrames;
                     };
                     this.Invoke(reportProgress);
                 }
                 else
                 {
-                    UpdateCount++;
+                    manager.UpdateCount++;
                 }
             }
         }
@@ -132,7 +171,7 @@ namespace PGBRender
             if (File.Exists(txtBlendFile.Text) && txtBlendFile.Text.EndsWith(".blend"))
             {
                 string args = string.Format(@"-b ""{0}"" -P ""{1}""", txtBlendFile.Text, "blendinfo.py");
-                ProcessStartInfo blenderArgs = new ProcessStartInfo(@"C:\Program Files\Blender Foundation\Blender\blender.exe", args);
+                ProcessStartInfo blenderArgs = new ProcessStartInfo(config.BlenderPath, args);
                 blenderArgs.CreateNoWindow = true;
                 blenderArgs.RedirectStandardOutput = true;
                 blenderArgs.UseShellExecute = false;
@@ -154,16 +193,16 @@ namespace PGBRender
 
         private void ToggleRunning()
         {
-            Running = !Running;
-            panelRunning.Visible = Running;
-            panelSetup.Visible = !Running;
-            panelRunning.Dock = Running ? DockStyle.Fill : DockStyle.None;
-            panelSetup.Dock = Running ? DockStyle.None : DockStyle.Fill;
+            manager.Running = !manager.Running;
+            panelRunning.Visible = manager.Running;
+            panelSetup.Visible = !manager.Running;
+            panelRunning.Dock = manager.Running ? DockStyle.Fill : DockStyle.None;
+            panelSetup.Dock = manager.Running ? DockStyle.None : DockStyle.Fill;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Job.Cancel();
+            manager.Job.Cancel();
 
             lblRunETA.Text = "Cancelled";
             lblRunFPS.Text = "N/A";
@@ -180,7 +219,7 @@ namespace PGBRender
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Job != null && Job.State == ProcessState.Running)
+            if (manager != null && manager.Job.State == ProcessState.Running)
             {
                 if (MessageBox.Show("Exiting now will cancel the render in progress.\n\nAre you sure you want to exit?", "Render in progress", MessageBoxButtons.YesNo)
                     == DialogResult.No)
@@ -189,9 +228,19 @@ namespace PGBRender
                 }
                 else
                 {
-                    Job.Cancel();
+                    manager.Job.Cancel();
+                    SaveConfig();
                 }
             }
+            else
+            {
+                SaveConfig();
+            }
+        }
+
+        private void lnkConfig_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            config = ConfigForm.ShowConfig(config);
         }
     }
 }

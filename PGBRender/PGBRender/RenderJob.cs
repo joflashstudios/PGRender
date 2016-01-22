@@ -15,6 +15,7 @@ namespace PGBRender
         private string WorkDirectory { get { return Path.Combine(TempDirectory, JobID.ToString("D")); } }
 
         public string BlendFile { get; set; }
+        public string FFMPEGFile { get; set; }
         public int CoreCount { get; set; }
         public int StartFrame { get; set; }
         public int EndFrame { get; set; }
@@ -122,7 +123,7 @@ namespace PGBRender
             File.WriteAllLines(Path.Combine(WorkDirectory, "combine.txt"), lines);
 
             Process ffmpeg = new Process();
-            ProcessStartInfo ffmpegArgs = new ProcessStartInfo(@"C:\Program Files\FFMPEG\bin\ffmpeg", BuildCommandLineArgs());
+            ProcessStartInfo ffmpegArgs = new ProcessStartInfo(FFMPEGFile, BuildCommandLineArgs());
             SetProcessProperties(ffmpeg, ffmpegArgs);
             ffmpeg.Start();
             ffmpeg.StandardOutput.ReadToEnd();
