@@ -120,6 +120,10 @@ namespace PGBRender
                 lines[i] = "file '" + path + "'";
                 Extension = Path.GetExtension(path); //This, I am ashamed of. Yes.
             }
+
+            if (File.Exists(GetOutputFile()))
+                File.Delete(GetOutputFile());
+
             File.WriteAllLines(Path.Combine(WorkDirectory, "combine.txt"), lines);
 
             Process ffmpeg = new Process();
@@ -132,9 +136,15 @@ namespace PGBRender
         private string BuildCommandLineArgs()
         {
             string list = Path.Combine(WorkDirectory, "combine.txt");
+            string destination = GetOutputFile();
+            return string.Format(@"-f concat -i ""{0}"" -c copy ""{1}""", list, destination);
+        }
+
+        private string GetOutputFile()
+        {
             string filename = Path.GetFileNameWithoutExtension(BlendFile) + " " + StartFrame + "-" + EndFrame + Extension;
             string destination = Path.Combine(OutputDirectory, filename);
-            return string.Format(@"-f concat -i ""{0}"" -c copy ""{1}""", list, destination);
+            return destination;
         }
 
         private static void SetProcessProperties(Process blenderRenderer, ProcessStartInfo blenderArgs)

@@ -124,6 +124,7 @@ namespace PGBRender
                         manager.LastPoll = DateTime.Now;
 
                         progressBar.Value = (int)(Math.Round((double)(100 * completedFrames) / (double)totalFrames));
+                        Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.Instance.SetProgressValue(progressBar.Value, 100);
                         double FPS = (completedFrames - manager.LastFramesCompleted) / elapsed.TotalSeconds;
                         manager.HistoricFPS[manager.HistoricFPSIndex] = FPS;
                         manager.HistoricFPSIndex++;
@@ -198,6 +199,8 @@ namespace PGBRender
             panelSetup.Visible = !manager.Running;
             panelRunning.Dock = manager.Running ? DockStyle.Fill : DockStyle.None;
             panelSetup.Dock = manager.Running ? DockStyle.None : DockStyle.Fill;
+
+            Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.Instance.SetProgressState(manager.Running ? Microsoft.WindowsAPICodePack.Taskbar.TaskbarProgressBarState.Normal : Microsoft.WindowsAPICodePack.Taskbar.TaskbarProgressBarState.NoProgress);          
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
