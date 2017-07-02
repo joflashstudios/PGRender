@@ -129,8 +129,14 @@ namespace PGBRender
             Process ffmpeg = new Process();
             ProcessStartInfo ffmpegArgs = new ProcessStartInfo(FFMPEGFile, BuildCommandLineArgs());
             SetProcessProperties(ffmpeg, ffmpegArgs);
+            ffmpeg.OutputDataReceived += Ffmpeg_OutputDataReceived;
             ffmpeg.Start();
-            ffmpeg.StandardOutput.ReadToEnd();
+            ffmpeg.WaitForExit();
+        }
+
+        private void Ffmpeg_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            File.AppendAllLines(WorkDirectory + "\ffmpeg.log", new[] { e.Data });
         }
 
         private string BuildCommandLineArgs()
@@ -147,12 +153,12 @@ namespace PGBRender
             return destination;
         }
 
-        private static void SetProcessProperties(Process blenderRenderer, ProcessStartInfo blenderArgs)
+        private static void SetProcessProperties(Process process, ProcessStartInfo args)
         {
-            blenderArgs.CreateNoWindow = true;
-            blenderArgs.RedirectStandardOutput = true;
-            blenderArgs.UseShellExecute = false;
-            blenderRenderer.StartInfo = blenderArgs;
+            args.CreateNoWindow = true;
+            args.RedirectStandardOutput = true;
+            args.UseShellExecute = false;
+            process.StartInfo = args;
         }
     }
 

@@ -140,7 +140,7 @@ namespace PGBRender
 
                             TimeSpan ETA = TimeSpan.FromSeconds((totalFrames - completedFrames) / averageFPS);
                             DateTime ETATime = DateTime.Now.Add(ETA);
-                            lblRunETA.Text = ETA.ToString("hh'h 'mm'm 'ss's'") + " – " + ETATime.ToString("t");
+                            lblRunETA.Text = ETA.ToString("hh'h 'mm'm 'ss's'") + " – " + ETATime.ToString("t") + " (" + Math.Round((double)(100 * completedFrames) / (double)totalFrames, 1) + "%)";
                         }
                         manager.LastFramesCompleted = completedFrames;
                     };
