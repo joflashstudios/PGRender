@@ -106,6 +106,7 @@ namespace PGBRender
                 btnPause.Enabled = false;
                 lblRunFPS.Text = "N/A";
                 lblRunRealtime.Text = "N/A";
+                Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.Instance.SetProgressState(Microsoft.WindowsAPICodePack.Taskbar.TaskbarProgressBarState.NoProgress);
             }));
         }
 

@@ -85,6 +85,8 @@ namespace PGBRender
             BlenderRenderer.StartInfo = blenderArgs;
             BlenderRenderer.OutputDataReceived += BlenderRenderer_OutputDataReceived;
             BlenderRenderer.Start();
+            BlenderRenderer.PriorityBoostEnabled = false;
+            BlenderRenderer.PriorityClass = ProcessPriorityClass.BelowNormal;
             BlenderRenderer.BeginOutputReadLine();
             _State = ProcessState.Running;
             BlenderRenderer.WaitForExit();
